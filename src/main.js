@@ -8,6 +8,12 @@ import index from './components/index.vue';
 import login from './components/login.vue';
 import members from './components/members.vue';
 import shopcar from './components/shopcar.vue';
+// 懒加载
+import VueLazyload from 'vue-lazyload';
+// 懒加载中间件
+Vue.use(VueLazyload,{
+  loading: require('./assets/statics/img/01.gif'),
+});
 
 Vue.use(ElementUI);
 

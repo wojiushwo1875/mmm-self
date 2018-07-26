@@ -83,7 +83,7 @@
                         <li v-for="(subitem, i) in item.datas">
                             <a href="#/site/goodsinfo/87" class="">
                                 <div class="img-box">
-                                    <img :src="subitem.img_url">
+                                    <img v-lazy="subitem.img_url">
                                 </div>
                                 <div class="info">
                                     <h3>{{subitem.artTitle}}</h3>
