@@ -51,7 +51,7 @@
                     <div class="left-220">
                         <ul class="side-img-list">
                             <li v-for="(item, index) in toplist" :key="item.id">
-                                <div class="img-box">
+                                    <div class="img-box">
                                     <label>{{index+1}}</label>
                                     <img :src="item.img_url">
                                 </div>
@@ -59,6 +59,7 @@
                                     <a href="/goods/show-98.html">{{item.title}}</a>
                                     <span>{{item.add_time | cutTime}}</span>
                                 </div>
+
                             </li>
                             
                         </ul>
@@ -80,8 +81,8 @@
             <div class="wrapper clearfix">
                 <div class="wrap-box">
                     <ul class="img-list">
-                        <li v-for="(subitem, i) in item.datas">
-                            <a href="#/site/goodsinfo/87" class="">
+                        <li v-for="(subitem, i) in item.datas" :key="subitem.artID">
+                            <router-link :to="'/goodsinfo/'+subitem.artID">
                                 <div class="img-box">
                                     <img v-lazy="subitem.img_url">
                                 </div>
@@ -96,19 +97,16 @@
                                         </span>
                                     </p>
                                 </div>
-                            </a>
+                            </router-link>
                         </li>
                         
                     </ul>
                 </div>
             </div>
         </div>
-       
     </div>
 </template>
 <script>
-import axios from "axios";
-import moment from "moment";
 export default {
   data: function() {
     return {
@@ -118,16 +116,11 @@ export default {
       goodlist: []
     };
   },
-  filters: {
-    cutTime(value) {
-      //   return value.slice(0,10);
-      return moment(value).format("YYYY-MM-DD");
-    }
-  },
+  
   //   页面即将加载
   beforeMount() {
-    axios
-      .get("http://47.106.148.205:8899/site/goods/gettopdata/goods")
+    this.axios
+      .get("/site/goods/gettopdata/goods")
       .then(response => {
         // handle success
         // console.log(response);
@@ -140,12 +133,12 @@ export default {
         // handle error
         console.log(error);
       });
-      axios
-      .get("http://47.106.148.205:8899/site/goods/getgoodsgroup")
+      this.axios
+      .get("/site/goods/getgoodsgroup")
       .then(response=>{
-          console.log(response);
+        //   console.log(response);
         this.goodlist = response.data.message;
-        console.log(this.goodlist);
+        // console.log(this.goodlist);
       }).catch(error=>{
           console.log(error);
       })
